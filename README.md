@@ -2,7 +2,7 @@
 
 ## Adaptation d'Atom Attack
 
-Version adapté de notre jeu [Atom Attack](http://http://gameweek.mattieuvendeville.fr/) pour le __LEAP MOTION__
+Version adapté de notre jeu _[Atom Attack](http://http://gameweek.mattieuvendeville.fr/)_ pour le __LEAP MOTION__.
 
 ## Description
 
@@ -12,7 +12,7 @@ A la suite de cela, vous devrez affronter le Boss pour obtenir la victoire.
 
 ## Utilisation
 
-Utilisez vos mains pour utiliser le personnage :
+Utilisez vos mains pour bouger le personnage :
 
 Des mouvements horizontaux (ou verticaux pour la deuxième partie) avec la paume de votre main pour les déplacements,
 et tapoter dans le vide avec votre doigt pour tirer
