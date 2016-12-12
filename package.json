@@ -1,0 +1,24 @@
+{
+  "name": "webpack-starter-js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node_modules/.bin/webpack-dev-server --watch --hot --inline --colors -d",
+    "build": "node_modules/.bin/webpack --production"
+  },
+  "author": "Mattieu VENDEVILLE <mattieu.vendeville@gmail.com>",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "extract-loader": "^0.1.0",
+    "jshint": "^2.9.4",
+    "jshint-loader": "^0.8.3",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "dependencies": {
+    "leapjs": "^0.6.4"
+  }
+}
