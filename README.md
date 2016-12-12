@@ -1,6 +1,6 @@
 # ATOM ATTACK (LEAP MOTION VERSION)
 
-## ADAPTATION D'ATOM ATTACK
+## Adaptation d'Atom Attack
 
 Version adapté de notre jeu [Atom Attack](http://http://gameweek.mattieuvendeville.fr/) pour le __LEAP MOTION__
 
@@ -9,3 +9,10 @@ Version adapté de notre jeu [Atom Attack](http://http://gameweek.mattieuvendevi
 Vous êtes un ___atome___ et votre objectif est de devenir une ___molécule___.
 Pour ce faire, vous devrez éliminer les virus et récupérer deux autres atomes.
 A la suite de cela, vous devrez affronter le Boss pour obtenir la victoire.
+
+## Utilisation
+
+Utilisez vos mains pour utiliser le personnage :
+
+Des mouvements horizontaux (ou verticaux pour la deuxième partie) avec la paume de votre main pour les déplacements,
+et tapoter dans le vide avec votre doigt pour tirer
