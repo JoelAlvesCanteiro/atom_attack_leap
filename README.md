@@ -1,11 +1,11 @@
-# Simple Webpack JS starter
+# ATOM ATTACK (LEAP MOTION VERSION)
 
-## Initialisation du pack
+## ADAPTATION D'ATOM ATTACK
 
-Avant de démarrer, n'oubliez pas d'installer les dépendances dev : `npm install -d`
+Version adapté de notre jeu [Atom Attack](http://http://gameweek.mattieuvendeville.fr/) pour le __LEAP MOTION__
 
-## Dev / Build
+## Description
 
-Pour lancer un serveur de dev : `npm run dev`
-
-Pour compiler un bundle : `npm run build`
+Vous êtes un ___atome___ et votre objectif est de devenir une ___molécule___.
+Pour ce faire, vous devrez éliminer les virus et récupérer deux autres atomes.
+A la suite de cela, vous devrez affronter le Boss pour obtenir la victoire.
