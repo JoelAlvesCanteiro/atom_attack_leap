@@ -221,7 +221,7 @@ window.AtomeCentre = {
 					this.RightAnimationStep = 8;
 					}
 			}else if (window.keyboard.espace == true){
-				this.AtkAnimationStepFloat += 0.30;
+				this.AtkAnimationStepFloat += 0.35;
 				this.AtkAnimationStep = Math.floor(this.AtkAnimationStepFloat);
 					if(this.AtkAnimationStep == 11){
 					this.AtkAnimationStepFloat = 0;
