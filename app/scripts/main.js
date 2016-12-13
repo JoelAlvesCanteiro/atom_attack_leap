@@ -1,3 +1,6 @@
+// Libs
+import Leap from 'leapjs';
+
 // INSERTION DES MUSIQUES
 var mortslimy = new Audio('./music/Mort_Slimy.ogg');
 var tirslimy = new Audio('./music/Tire_Slimy3.ogg');
@@ -9,7 +12,7 @@ document.body.onload = LoadGame;
 // CHARGEMENT INITIAL DU JEU + AJOUT DES VARIABLES, TABLEAUX ET OBJETS
 function LoadGame(){
 	window.canvas  = document.createElement("canvas"),
-	window.context = canvas.getContext("2d");
+	window.context = canvas.getContext('2d');
 	canvas.width = 900;
 	canvas.height = 900;
 
@@ -28,7 +31,7 @@ function LoadGame(){
     window.joueur = {
     	x : 400,
 		y : 750,
-		vitesse : 10,
+		vitesse : 5,
 		cadenceTir : 500, //en millisecondes
 		tempsDernierTir : 0, // stockage du timing du dernier tir player
 		checkCollision : function(){
@@ -38,11 +41,11 @@ function LoadGame(){
 				if (bossT.y+150 <= joueur.y && bossT.y+bossT.height-250 >= joueur.y && bossT.x <= joueur.x) {
 					window.bossTir.splice(i, 1);
 					badEnd();
-					console.log(bossT.x +" | "+ bossT.y +" | "+ bossT.width +" | "+ bossT.height)
+					console.log(bossT.x +" | "+ bossT.y +" | "+ bossT.width +" | "+ bossT.height);
 				}
 			}
 		}
-    }
+    };
     window.mort = false;
 
 	window.tirs = [];
@@ -53,18 +56,18 @@ function LoadGame(){
 		width: 600,
 		height: 900,
 		rotation: 0
-	}
+	};
 
 	window.ennemi = [];
 	window.spawn = {
 		cadencePop : 1000, //en millisecondes
 		lastPop : 0
-	}
+	};
 	window.tirEnnemis = [];
 	window.ennemiCadence = {
 		cadenceTir : 1500,
 		tempsDernierTir : 0
-	}
+	};
 
 	window.wait = true;
 
@@ -72,7 +75,7 @@ function LoadGame(){
 	window.spawnObjet ={
 		cadencePop : 15000,
 		lastPop : 0
-	}
+	};
 
 	window.boss = false;
 	window.bossMort = false;
@@ -96,7 +99,7 @@ function LoadGame(){
 		haut: false,
 		bas: false,
 		espace: false
-	}
+	};
 
 	window.document.addEventListener('keydown',function(e){
 		if (e.keyCode == 37){ window.keyboard.gauche = true;}
@@ -185,15 +188,15 @@ window.AtomeCentre = {
 		[770,630,200,203],
 		],
 		Draw : function(){
-			if (window.keyboard.gauche == true) {
+			if (window.keyboard.gauche === true) {
 				context.drawImage(charSheet2,this.StepsGauche[this.LeftAnimationStep][0],
 				this.StepsGauche[this.LeftAnimationStep][1],this.StepsGauche[this.LeftAnimationStep][2],
 				this.StepsGauche[this.LeftAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
-			}else if (window.keyboard.droite == true) {
+			}else if (window.keyboard.droite === true) {
 				context.drawImage(charSheet2,this.StepsDroite[this.RightAnimationStep][0],
 				this.StepsDroite[this.RightAnimationStep][1],this.StepsDroite[this.RightAnimationStep][2],
 				this.StepsDroite[this.RightAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
-			}else if (window.keyboard.espace == true) {
+			}else if (window.keyboard.espace === true) {
 				context.drawImage(charSheet3,this.StepsAttack[this.AtkAnimationStep][0],
 				this.StepsAttack[this.AtkAnimationStep][1],this.StepsAttack[this.AtkAnimationStep][2],
 				this.StepsAttack[this.AtkAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
@@ -206,14 +209,14 @@ window.AtomeCentre = {
 		Animate : function(){
 			// anim immobile
 			//anim gauche
-			if (window.keyboard.gauche == true) {
+			if (window.keyboard.gauche === true) {
 				this.LeftAnimationStepFloat += 0.15;
 				this.LeftAnimationStep = Math.floor(this.LeftAnimationStepFloat);
 				if(this.LeftAnimationStep == 9){
 					this.LeftAnimationStepFloat = 0;
 					this.LeftAnimationStep = 8;
 					}
-			}else if (window.keyboard.droite == true) {
+			}else if (window.keyboard.droite === true) {
 				this.RightAnimationStepFloat += 0.15;
 				this.RightAnimationStep = Math.floor(this.RightAnimationStepFloat);
 					if(this.RightAnimationStep == 9){
@@ -316,7 +319,6 @@ window.theBonus = {
 		Animate : function(){
 			this.IdleAnimationStepFloat += 0.10;
 			this.IdleAnimationStep = Math.floor(this.IdleAnimationStepFloat);
-			console.log(this.IdleAnimationStep);
 			if(this.IdleAnimationStep == 3){
 				this.IdleAnimationStepFloat = 0;
 				this.IdleAnimationStep = 2;
@@ -483,8 +485,7 @@ window.theBossTir = {
 		Draw : function(){
 			context.drawImage(imgFond,fondx,fondy,fondweight,fondheight);
 		}
-	}
-	,AtomeCentre]; 	
+	}, AtomeCentre];
 	
 	//Les objets à animation
 	window.animables = [
@@ -611,19 +612,19 @@ function Animate(){
 	}
 
 	// Défilement en boucle du fond de la zone de jeu
-	if (game == "vertical" && gameover == false) {
+	if (game == "vertical" && gameover === false) {
 		fondy+=2;
 		fondy2+=2;
 	}
-	if (fondy >= 0 && game == "vertical" && gameover == false) {
+	if (fondy >= 0 && game == "vertical" && gameover === false) {
 		fondy=-1575;
 	}
 
-	if (game == "horizontal" && gameover == false) {
+	if (game == "horizontal" && gameover === false) {
 		fondx-=2;
 		fondx2-=2;
 	}
-	if (fondx <= -1575 && game == "horizontal" && gameover == false) {
+	if (fondx <= -1575 && game == "horizontal" && gameover === false) {
 		fondx=0;
 	}
 }
@@ -665,7 +666,7 @@ function DrawBoss(){
 	for (var i = 0, Fboss; i < window.bossStats.length; i++){
 		Fboss = window.bossStats[i];
 
-		if (bossMort == false) {
+		if (bossMort === false) {
 			context.drawImage(bossImg,theBoss.Steps[theBoss.IdleAnimationStep][0],
 			theBoss.Steps[theBoss.IdleAnimationStep][1],theBoss.Steps[theBoss.IdleAnimationStep][2],
 			theBoss.Steps[theBoss.IdleAnimationStep][3],Fboss.x,Fboss.y,Fboss.width,Fboss.height);
@@ -702,8 +703,8 @@ function lesTirs(){
 		}
 	}
 
-	for (var i = 0, tirE; i < window.tirEnnemis.length; i++){
-		tirE = window.tirEnnemis[i];
+	for (var j = 0, tirE; j < window.tirEnnemis.length; j++){
+		tirE = window.tirEnnemis[j];
 
 		context.fillStyle = tirE.couleurFond;
 		context.lineWidth = tirE.epaisseur;
@@ -716,8 +717,8 @@ function lesTirs(){
 		context.closePath();
 	}
 
-	for (var i = 0, bossT; i < window.bossTir.length; i++){
-		bossT = window.bossTir[i];
+	for (var k = 0, bossT; k < window.bossTir.length; k++){
+		bossT = window.bossTir[k];
 
 		console.log('arzea');
 
@@ -734,7 +735,7 @@ function lesTirs(){
 // AJOUT DES TIRS DU JOUEUR
 function Tir(){
 
-	if (window.keyboard.espace && Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "vertical" && gameover == false) {
+	if (window.keyboard.espace && Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "vertical" && gameover === false) {
 		// Création d'un nouveau tir dans le tableau de tirs
 		window.tirs.push({
 			x : joueur.x+25,
@@ -765,7 +766,7 @@ function Tir(){
 		joueur.tempsDernierTir = Date.now();
 		tirvirus.currentTime = 0;
 		tirslimy.play();
-	} else if (window.keyboard.espace && Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "horizontal"  && gameover == false) {
+	} else if (window.keyboard.espace && Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "horizontal"  && gameover === false) {
 		// Création d'un nouveau tir dans le tableau de tirs
 		window.tirs.push({
 			x : joueur.x+50,
@@ -791,14 +792,14 @@ function Tir(){
 					}
 				}
 
-				for (var i = 0, Fboss; i < window.bossStats.length; i++){
-					Fboss = window.bossStats[i];
+				for (var j = 0, Fboss; j < window.bossStats.length; j++){
+					Fboss = window.bossStats[j];
 
 					if (Fboss.y-50 <= tir.y && Fboss.y+Fboss.width >= tir.y && Fboss.x-20 <= tir.x && Fboss.x+Fboss.width >= tir.x) {
 						window.tirs.splice(tirs.indexOf(this), 1); // Supprime cet element à l'indice 'i' dans le tableau
 						bossVie--;
 						context.globalAlpha = 0.8;
-						setTimeout(function (){context.globalAlpha = 1}, 200);
+						setTimeout(alpha(), 200);
 						goodEnd();
 					}
 				}
@@ -822,8 +823,8 @@ function Tir(){
 		}
 	}
 
-	for (var i = tirs.length - 1; i >= 0; i--) {
-		tirs[i].checkCollision();
+	for (var j = tirs.length - 1; j >= 0; j--) {
+		tirs[j].checkCollision();
 	}
 }
 
@@ -832,7 +833,7 @@ function TirEnnemi(){
 	for (var i = 0, enemy; i < window.ennemi.length; i++){
 		enemy = window.ennemi[i];
 
-		if (Date.now() - enemy.tempsDernierTir > enemy.cadenceTir && game == "vertical" && gameover == false && enemy.type == 3) {
+		if (Date.now() - enemy.tempsDernierTir > enemy.cadenceTir && game == "vertical" && gameover === false && enemy.type == 3) {
 			// Création d'un nouveau tir dans le tableau de tirs
 			window.tirEnnemis.push({
 				x : enemy.x+35,
@@ -858,7 +859,7 @@ function TirEnnemi(){
 			enemy.tempsDernierTir = Date.now();
 			tirvirus.currentTime = 0;
 			tirvirus.play();
-		} else if (Date.now() - enemy.tempsDernierTir > enemy.cadenceTir && game == "horizontal" && gameover == false && enemy.type == 3) {
+		} else if (Date.now() - enemy.tempsDernierTir > enemy.cadenceTir && game == "horizontal" && gameover === false && enemy.type == 3) {
 			// Création d'un nouveau tir dans le tableau de tirs
 			window.tirEnnemis.push({
 				x : enemy.x,
@@ -889,8 +890,8 @@ function TirEnnemi(){
 	}
 
 	// Parcourir tous les tirs du tableau (sils existent) et les faire avancer
-	for (var i = 0, tirE; i < window.tirEnnemis.length; i++){
-		tirE = window.tirEnnemis[i];
+	for (var j = 0, tirE; j < window.tirEnnemis.length; j++){
+		tirE = window.tirEnnemis[j];
 
 		tirE.x += Math.cos(tirE.direction) * tirE.vitesse;
 		tirE.y += Math.sin(tirE.direction) * tirE.vitesse;
@@ -901,8 +902,8 @@ function TirEnnemi(){
 		}
 	}
 
-	for (var i = tirEnnemis.length - 1; i >= 0; i--) {
-		tirEnnemis[i].checkCollision();
+	for (var k = tirEnnemis.length - 1; k >= 0; k--) {
+		tirEnnemis[k].checkCollision();
 	}
 }
 
@@ -911,7 +912,7 @@ function TirBoss(){
 	for (var i = 0, Fboss; i < window.bossStats.length; i++){
 		Fboss = window.bossStats[i];
 
-		if (theBoss.IdleAnimationStep >= 33 && gameover == false && boss == true && bossMort == false && bossCooldown == false) {
+		if (theBoss.IdleAnimationStep >= 33 && gameover === false && boss === true && bossMort === false && bossCooldown === false) {
 			// Création d'un nouveau tir dans le tableau de tirs
 			window.bossTir.push({
 				x : Fboss.x - 400,
@@ -940,8 +941,8 @@ function TirBoss(){
 	}
 
 	// Parcourir tous les tirs du tableau (sils existent) et les faire avancer
-	for (var i = 0, bossT; i < window.bossTir.length; i++){
-		bossT = window.bossTir[i];
+	for (var j = 0, bossT; j < window.bossTir.length; j++){
+		bossT = window.bossTir[j];
 
 		bossT.x += Math.cos(bossT.direction) * bossT.vitesse;
 
@@ -959,26 +960,26 @@ function TirBoss(){
 // AJOUT DES MOUVEMENTS DU JOUEUR
 function MovePlayer(){
 
-	if (window.keyboard.gauche && joueur.x > 185 && game == "vertical" && gameover == false) {
+	if (window.keyboard.gauche && joueur.x > 185 && game == "vertical" && gameover === false) {
 		joueur.x -= joueur.vitesse;
 	}
 
-	if (window.keyboard.droite && joueur.x < 615 && game == "vertical" && gameover == false) {
+	if (window.keyboard.droite && joueur.x < 615 && game == "vertical" && gameover === false) {
 		joueur.x += joueur.vitesse;
 	}
 
-	if (window.keyboard.haut && joueur.y > 200 && game == "horizontal" && gameover == false) {
+	if (window.keyboard.haut && joueur.y > 200 && game == "horizontal" && gameover === false) {
 		joueur.y -= joueur.vitesse;
 	}
 
-	if (window.keyboard.bas && joueur.y < 600 && game == "horizontal" && gameover == false) {
+	if (window.keyboard.bas && joueur.y < 600 && game == "horizontal" && gameover === false) {
 		joueur.y += joueur.vitesse;
 	}
 }
 
 // AJOUT DES MOUVEMENTS DE L'ENNEMI
 function MoveEnnemies(){
-	if (Date.now() - spawn.lastPop > spawn.cadencePop && gameover == false && game == "vertical" && wait == false) {
+	if (Date.now() - spawn.lastPop > spawn.cadencePop && gameover === false && game == "vertical" && wait === false) {
 		window.ennemi.push({
 			x : Math.floor((Math.random() * 415	)+ 185),
 			y : -50,
@@ -994,8 +995,7 @@ function MoveEnnemies(){
 			for (var i = 0, enemy; i < window.ennemi.length; i++){
 				enemy = window.ennemi[i];
 
-				if (enemy.y-100 <= joueur.y && enemy.y+enemy.height >= joueur.y
-					&& enemy.x-75 <= joueur.x && enemy.x+50 >= joueur.x) {
+				if (enemy.y-100 <= joueur.y && enemy.y+enemy.height >= joueur.y && enemy.x-75 <= joueur.x && enemy.x+50 >= joueur.x) {
 					window.ennemi.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 					badEnd();
 				}
@@ -1005,7 +1005,7 @@ function MoveEnnemies(){
 		});
 
 		spawn.lastPop = Date.now();
-	} else if (Date.now() - spawn.lastPop > spawn.cadencePop && gameover == false && game == "horizontal" && wait == false) {
+	} else if (Date.now() - spawn.lastPop > spawn.cadencePop && gameover === false && game == "horizontal" && wait === false) {
 		window.ennemi.push({
 			x : 950,
 			y : Math.floor((Math.random() * 385)+ 185),
@@ -1020,8 +1020,7 @@ function MoveEnnemies(){
 			for (var i = 0, enemy; i < window.ennemi.length; i++){
 				enemy = window.ennemi[i];
 
-				if (enemy.y-100 <= joueur.y && enemy.y+enemy.height >= joueur.y
-					&& enemy.x-75 <= joueur.x && enemy.x+50 >= joueur.x) {
+				if (enemy.y-100 <= joueur.y && enemy.y+enemy.height >= joueur.y && enemy.x-75 <= joueur.x && enemy.x+50 >= joueur.x) {
 					window.ennemi.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 					badEnd();
 				}
@@ -1031,27 +1030,27 @@ function MoveEnnemies(){
 		});
 
 		spawn.lastPop = Date.now();
-	} else if (wait == true) {
-		setTimeout(function (){wait = false}, 5000)
+	} else if (wait === true) {
+		setTimeout(function(){wait = false;}, 5000);
 	}
 	
 	
 	for (var i = 0, enemy; i < window.ennemi.length; i++){
 		enemy = window.ennemi[i];
 
-		if (gameover == false && game == "vertical") {
+		if (gameover === false && game == "vertical") {
 			enemy.x += Math.cos(enemy.direction) * enemy.vitesse;
 			enemy.y += Math.sin(enemy.direction) * enemy.vitesse;
-		} else if (gameover == false && game == "horizontal") {
+		} else if (gameover === false && game == "horizontal") {
 			enemy.x += Math.cos(enemy.direction) * enemy.vitesse;
 			enemy.y += Math.sin(enemy.direction) * enemy.vitesse;
-		} else if (gameover == true) {
+		} else if (gameover === true) {
 			enemy.x = enemy.x;
 			enemy.y = enemy.y;
 		}
 
-		if (enemy.type == 2 && enemy.x >= 160 && enemy.x <= 650 && gameover == false && game == "vertical") {enemy.x+= Math.floor((Math.random() *50)- 25);}
-		if (enemy.type == 2 && enemy.y >= 160 && enemy.y <= 650 && gameover == false && game == "horizontal") {enemy.y+= Math.floor((Math.random() *50)- 25);}
+		if (enemy.type == 2 && enemy.x >= 160 && enemy.x <= 650 && gameover === false && game == "vertical") {enemy.x+= Math.floor((Math.random() *50)- 25);}
+		if (enemy.type == 2 && enemy.y >= 160 && enemy.y <= 650 && gameover === false && game == "horizontal") {enemy.y+= Math.floor((Math.random() *50)- 25);}
 
 		//Vérifier si cet ennemi est encore affiché à l"écran, sinon on le supprimeen mémoire
 		if (game == "vertical" && enemy.x < 185 || enemy.x > 975 || enemy.y < -75 || enemy.y > canvas.height) {
@@ -1061,8 +1060,8 @@ function MoveEnnemies(){
 		}
 	}
 
-	for (var i = ennemi.length - 1; i >= 0; i--) {
-		ennemi[i].checkCollision();
+	for (var j = ennemi.length - 1; j >= 0; j--) {
+		ennemi[j].checkCollision();
 	}
 }
 
@@ -1090,7 +1089,7 @@ function changeGame(){
 // AJOUT DE L'APPARITION DE L'ATOME
 function SpawnAtome(){
 	if (score >= 750 && nbAtome < 3) {
-		if (Date.now() - spawnObjet.lastPop > spawnObjet.cadencePop && game == "vertical" && gameover == false) {
+		if (Date.now() - spawnObjet.lastPop > spawnObjet.cadencePop && game == "vertical" && gameover === false) {
 			window.objets.push({
 				x : Math.floor((Math.random() * 415	)+ 185),
 				y : -250,
@@ -1102,11 +1101,10 @@ function SpawnAtome(){
 					for (var i = 0, objet; i < window.objets.length; i++){
 						objet = window.objets[i];
 
-						if (objet.y-20 <= joueur.y && objet.y+100 >= joueur.y
-						&& objet.x-10 <= joueur.x && objet.x+150 >= joueur.x) {
+						if (objet.y-20 <= joueur.y && objet.y+100 >= joueur.y && objet.x-10 <= joueur.x && objet.x+150 >= joueur.x) {
 							window.objets.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 							nbAtome++;
-							setInterval(changeGame, 10)
+							setInterval(changeGame, 10);
 						}
 					}
 				}
@@ -1114,7 +1112,7 @@ function SpawnAtome(){
 			});
 
 			spawnObjet.lastPop = Date.now();
-		} else if (Date.now() - spawnObjet.lastPop > spawnObjet.cadencePop && game == "horizontal" && gameover == false) {
+		} else if (Date.now() - spawnObjet.lastPop > spawnObjet.cadencePop && game == "horizontal" && gameover === false) {
 			window.objets.push({
 				x : 950,
 				y : Math.floor((Math.random() * 385)+ 185),
@@ -1126,11 +1124,10 @@ function SpawnAtome(){
 					for (var i = 0, objet; i < window.objets.length; i++){
 						objet = window.objets[i];
 
-						if (objet.y-20 <= joueur.y && objet.y+100 >= joueur.y
-						&& objet.x-10 <= joueur.x && objet.x+150 >= joueur.x) {
+						if (objet.y-20 <= joueur.y && objet.y+100 >= joueur.y && objet.x-10 <= joueur.x && objet.x+150 >= joueur.x) {
 							window.objets.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 							nbAtome++;
-							setInterval(changeGame, 10)
+							setInterval(changeGame, 10);
 						}
 					}
 				}
@@ -1144,13 +1141,13 @@ function SpawnAtome(){
 		for (var i = 0, objet; i < window.objets.length; i++){
 			objet = window.objets[i];
 
-			if (gameover == false && game == "vertical") {
+			if (gameover === false && game == "vertical") {
 				objet.x += Math.cos(objet.direction) * objet.vitesse;
 				objet.y += Math.sin(objet.direction) * objet.vitesse;
-			} else if (gameover == false && game == "horizontal") {
+			} else if (gameover === false && game == "horizontal") {
 				objet.x += Math.cos(objet.direction) * objet.vitesse;
 				objet.y += Math.sin(objet.direction) * objet.vitesse;
-			} else if (gameover == true) {
+			} else if (gameover === true) {
 				objet.x = objet.x;
 				objet.y = objet.y;
 			}
@@ -1161,15 +1158,15 @@ function SpawnAtome(){
 		}
 
 
-		for (var i = objets.length - 1; i >= 0; i--) {
-			objets[i].checkCollision();
+		for (var j = objets.length - 1; j >= 0; j--) {
+			objets[j].checkCollision();
 		}
 	}
 }
 
 // AJOUT DE L'APPARITION DE L'ATOME
 function SpawnBoss(){
-	if (score >= 5000 && nbAtome >= 3 && boss == false && bossMort == false && game == "horizontal") {
+	if (score >= 5000 && nbAtome >= 3 && boss === false && bossMort === false && game == "horizontal") {
 		boss = true;
 		tirEnnemis = [];
 		ennemi = [];
@@ -1191,12 +1188,12 @@ function SpawnBoss(){
 	for (var i = 0, Fboss; i < window.bossStats.length; i++){
 		Fboss = window.bossStats[i];
 
-		if (gameover == false && Fboss.x > 600) {
+		if (gameover === false && Fboss.x > 600) {
 			Fboss.x += Math.cos(Fboss.direction) * Fboss.vitesse;
 			Fboss.y += Math.floor((Math.random() * 30)- 15);
-		} else if (gameover == false && Fboss.x <= 600) {
+		} else if (gameover === false && Fboss.x <= 600) {
 			Fboss.y += Math.floor((Math.random() * 30)- 15);			
-		} else if (gameover == true) {
+		} else if (gameover === true) {
 			Fboss.x = Fboss.x;
 			Fboss.y = Fboss.y;
 		}
@@ -1216,14 +1213,14 @@ function DetectAtome(){
 		charSheet.src = './img/marcheAtom2-3.png';
 	} else if (nbAtome == 3) {
 		// Placer l'animation 3 atomes
-	} else if (nbAtome == 0) {
+	} else if (nbAtome === 0) {
 		// Placer l'animation mort
 	}
 }
 
 // NETTOYAGE DU TERRAIN QUAND LE BOSS APPARAIT
 function Nettoyage(){
-	if (boss == false) {
+	if (boss === false) {
 		MoveEnnemies();
 		TirEnnemi();
 		SpawnAtome();
@@ -1267,8 +1264,8 @@ function badEnd(){
 			tirs = [];
 			tirEnnemis = [];
 			ennemi = [];
-			setTimeout(function(){location.reload();}, 2000)
-		}, 1000)
+			setTimeout(function(){location.reload();}, 2000);
+		}, 1000);
 	}
 }
 
@@ -1286,6 +1283,11 @@ function goodEnd(){
 			tirs = [];
 			tirEnnemis = [];
 			ennemi = [];
-		}, 1000)
+		}, 1000);
 	}
+}
+
+
+function alpha(){
+	context.globalAlpha = 1;
 }
