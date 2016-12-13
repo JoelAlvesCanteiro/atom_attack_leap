@@ -101,6 +101,10 @@ function LoadGame(){
 		espace: false
 	};
 
+	window.left 	= false,
+	window.right 	= false,
+	window.shoot 	= false;
+
 	window.document.addEventListener('keydown',function(e){
 		if (e.keyCode == 37){ window.keyboard.gauche = true;}
 		if (e.keyCode == 38){ window.keyboard.haut = true;}
@@ -188,15 +192,15 @@ window.AtomeCentre = {
 		[770,630,200,203],
 		],
 		Draw : function(){
-			if (window.keyboard.gauche === true) {
+			if (window.keyboard.gauche === true || left === true) {
 				context.drawImage(charSheet2,this.StepsGauche[this.LeftAnimationStep][0],
 				this.StepsGauche[this.LeftAnimationStep][1],this.StepsGauche[this.LeftAnimationStep][2],
 				this.StepsGauche[this.LeftAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
-			}else if (window.keyboard.droite === true) {
+			}else if (window.keyboard.droite === true || right === true) {
 				context.drawImage(charSheet2,this.StepsDroite[this.RightAnimationStep][0],
 				this.StepsDroite[this.RightAnimationStep][1],this.StepsDroite[this.RightAnimationStep][2],
 				this.StepsDroite[this.RightAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
-			}else if (window.keyboard.espace === true) {
+			}else if (window.keyboard.espace === true || shoot === true) {
 				context.drawImage(charSheet3,this.StepsAttack[this.AtkAnimationStep][0],
 				this.StepsAttack[this.AtkAnimationStep][1],this.StepsAttack[this.AtkAnimationStep][2],
 				this.StepsAttack[this.AtkAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
@@ -209,26 +213,32 @@ window.AtomeCentre = {
 		Animate : function(){
 			// anim immobile
 			//anim gauche
-			if (window.keyboard.gauche === true) {
+			if (window.keyboard.gauche === true || left === true) {
 				this.LeftAnimationStepFloat += 0.15;
 				this.LeftAnimationStep = Math.floor(this.LeftAnimationStepFloat);
 				if(this.LeftAnimationStep == 9){
 					this.LeftAnimationStepFloat = 0;
 					this.LeftAnimationStep = 8;
+
+					left = false;
 					}
-			}else if (window.keyboard.droite === true) {
+			}else if (window.keyboard.droite === true || right === true) {
 				this.RightAnimationStepFloat += 0.15;
 				this.RightAnimationStep = Math.floor(this.RightAnimationStepFloat);
 					if(this.RightAnimationStep == 9){
 					this.RightAnimationStepFloat = 0;
 					this.RightAnimationStep = 8;
+
+					right = false;
 					}
-			}else if (window.keyboard.espace === true){
-				this.AtkAnimationStepFloat += 0.30;
+			}else if (window.keyboard.espace === true || shoot === true){
+				this.AtkAnimationStepFloat += 0.35;
 				this.AtkAnimationStep = Math.floor(this.AtkAnimationStepFloat);
 					if(this.AtkAnimationStep == 11){
 					this.AtkAnimationStepFloat = 0;
 					this.AtkAnimationStep = 10;
+
+					shoot = false;
 					}
 			}else{
 				this.IdleAnimationStepFloat += 0.15;
@@ -1304,8 +1314,9 @@ function leap(){
 		// BOUCLE PARCOURANT CHAQUE MAIN DÉTECTÉE DANS L'ESPACE LEAP
 		frame.hands.forEach((hand) => {
 
-			if (hand.direction[0] > 0 && joueur.x < 615 && game == "vertical") {joueur.x += joueur.vitesse;}
-			if (hand.direction[0] < 0 && joueur.x > 185 && game == "vertical") {joueur.x -= joueur.vitesse;}
+			if (hand.direction[0] > 0 && joueur.x < 615 && game == "vertical") {joueur.x += joueur.vitesse; right = true; left = false;}
+			else if (hand.direction[0] < 0 && joueur.x > 185 && game == "vertical") {joueur.x -= joueur.vitesse; right = false; left = true;}
+			else {right = false; left = false;}
 
 			if (hand.palmPosition[1] < 200 && joueur.y < 600 && game == "horizontal") {joueur.y += joueur.vitesse;}
 			if (hand.palmPosition[1] > 200 && joueur.y > 200 && game == "horizontal") {joueur.y -= joueur.vitesse;}
@@ -1348,6 +1359,7 @@ function leap(){
 					joueur.tempsDernierTir = Date.now();
 					tirvirus.currentTime = 0;
 					tirslimy.play();
+					shoot = true;
 				} else if (Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "horizontal"  && gameover === false) {
 					// Création d'un nouveau tir dans le tableau de tirs
 					window.tirs.push({
@@ -1390,6 +1402,7 @@ function leap(){
 
 					joueur.tempsDernierTir = Date.now();
 					tirslimy.play();
+					shoot = true;
 				}
 
 				// Parcourir tous les tirs du tableau (sils existent) et les faire avancer
@@ -1399,7 +1412,7 @@ function leap(){
 					tir.x += Math.cos(tir.direction) * tir.vitesse;
 					tir.y += Math.sin(tir.direction) * tir.vitesse;
 
-					//Vérifier si ce tir est encore affiché à l"écran, sinon on le supprimeen mémoire
+					//Vérifier si ce tir est encore affiché à l"écran, sinon on le supprime en mémoire
 					if (tir.x < 0 || tir.x > canvas.width || tir.y < 0 || tir.y > canvas.height) {
 						window.tirs.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 					}
