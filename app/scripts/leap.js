@@ -1,4 +1,10 @@
 import Leap from 'leapjs';
+import {alpha} from './utils.js';
+import {badEnd, goodEnd} from './end.js';
+
+let tirslimy = new Audio('./music/Tire_Slimy3.ogg');
+let tirvirus = new Audio('./music/Tire_Virus.ogg');
+let mortvirus = new Audio('./music/Mort_Virus.ogg');
 
 export function leap(){
 
