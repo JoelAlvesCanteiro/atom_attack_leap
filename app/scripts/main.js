@@ -214,7 +214,7 @@ window.AtomeCentre = {
 			// anim immobile
 			//anim gauche
 			if (window.keyboard.gauche === true || left === true) {
-				this.LeftAnimationStepFloat += 0.15;
+				this.LeftAnimationStepFloat += 0.08;
 				this.LeftAnimationStep = Math.floor(this.LeftAnimationStepFloat);
 				if(this.LeftAnimationStep == 9){
 					this.LeftAnimationStepFloat = 0;
@@ -223,7 +223,7 @@ window.AtomeCentre = {
 					left = false;
 					}
 			}else if (window.keyboard.droite === true || right === true) {
-				this.RightAnimationStepFloat += 0.15;
+				this.RightAnimationStepFloat += 0.08;
 				this.RightAnimationStep = Math.floor(this.RightAnimationStepFloat);
 					if(this.RightAnimationStep == 9){
 					this.RightAnimationStepFloat = 0;
