@@ -1,4 +1,5 @@
 // Libs
+import Leap from 'leapjs';
 import {lesTirs, Tir, TirBoss, TirEnnemi} from './tirs.js';
 import {LoadImages} from './load_img.js';
 import {MovePlayer, MoveEnnemies} from './move.js';
@@ -13,6 +14,9 @@ import {leap} from './leap.js';
 
 import {badEnd, goodEnd} from './end.js';
 
+let controller = new Leap.Controller({enableGestures: true});
+controller.connect();
+
 // INSERTION DES MUSIQUES
 var mortslimy = new Audio('./music/Mort_Slimy.ogg');
 
@@ -20,6 +24,7 @@ document.body.onload = LoadGame;
 
 // CHARGEMENT INITIAL DU JEU + AJOUT DES VARIABLES, TABLEAUX ET OBJETS
 function LoadGame(){
+	leap();
 	window.canvas  = document.createElement("canvas"),
 	window.context = canvas.getContext('2d');
 	canvas.width = 900;
@@ -72,7 +77,7 @@ function LoadGame(){
 
 	window.ennemi = [];
 	window.spawn = {
-		cadencePop : 1000, //en millisecondes
+		cadencePop : 5000, //en millisecondes
 		lastPop : 0
 	};
 	window.tirEnnemis = [];
@@ -85,7 +90,7 @@ function LoadGame(){
 
 	window.objets = [];
 	window.spawnObjet ={
-		cadencePop : 15000,
+		cadencePop : 30000,
 		lastPop : 0
 	};
 
@@ -133,7 +138,6 @@ function LoadGame(){
 	Anims();
 	
 	//Lancement Initial du jeu
-	leap();
 	requestAnimationFrame(GameLoop);
 }
 
@@ -145,6 +149,17 @@ function render() {
 
 	// Dessin d'un fond
 	context.drawImage(imgFond, fondx, fondy);
+
+	context2.font = "bold 30px Verdana";
+	let gradient=context.createLinearGradient(0,0,canvas.width,500);
+	gradient.addColorStop("0","white");
+	context2.fillStyle=gradient
+
+	context2.fillText("Bouger",35,25);
+	context2.drawImage(hand, 50,50, 13*8, 13*8);;
+
+	context2.fillText("Tir",840,25);
+	context2.drawImage(hand_tir, 800,50, 18*8, 18*8);
 
 	// Dessin du joueur
 	DrawPlayer();
@@ -184,6 +199,7 @@ function GameLoop(){
 
 	joueur.checkCollision();
 
+	window.spawn.cadencePop -= 1;
 	// Dessin (rendering)
 	render();
 	Scoring();

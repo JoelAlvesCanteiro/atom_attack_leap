@@ -50,4 +50,14 @@ export function LoadImages(){
 
 	window.bonus = new Image();
 	bonus.src = './img/bonus.png';
+
+
+	window.leap = new Image();
+	leap.src = './img/leapmotion.png';
+
+	window.hand = new Image();
+	hand.src = './img/hand.png';
+
+	window.hand_tir = new Image();
+	hand_tir.src = './img/hand_shoot.png';
 }

@@ -48,3 +48,13 @@ div#end{
 	width: 100%;
 	transition: 2s;
 }
+
+
+
+#canvas2{
+	display: none;
+}
+
+.leap{
+	width: 100%;
+}

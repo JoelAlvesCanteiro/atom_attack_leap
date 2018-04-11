@@ -36,8 +36,6 @@ export function lesTirs(){
 	for (var k = 0, bossT; k < window.bossTir.length; k++){
 		bossT = window.bossTir[k];
 
-		console.log('arzea');
-
 		context.drawImage(laser,theBossTir.Steps[theBossTir.IdleAnimationStep][0],
 		theBossTir.Steps[theBossTir.IdleAnimationStep][1],theBossTir.Steps[theBossTir.IdleAnimationStep][2],
 		theBossTir.Steps[theBossTir.IdleAnimationStep][3],bossT.x,bossT.y,bossT.width,bossT.height);

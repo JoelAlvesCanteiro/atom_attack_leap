@@ -32,6 +32,7 @@ export function MoveEnnemies(){
 			cadenceTir : 1500,
 			tempsDernierTir : 0,
 			direction : Math.PI/2,
+			move : Math.floor((Math.random() *100)+ 1),
 			type : Math.floor((Math.random() *3)+ 1),
 			// type : 3,
 			checkCollision : function(){
@@ -58,6 +59,7 @@ export function MoveEnnemies(){
 			cadenceTir : 1500,
 			tempsDernierTir : 0,
 			direction : -Math.PI,
+			move : Math.floor((Math.random() *100)+ 1),
 			type : Math.floor((Math.random() *3)+ 1),
 			checkCollision : function(){
 			for (var i = 0, enemy; i < window.ennemi.length; i++){
@@ -92,11 +94,15 @@ export function MoveEnnemies(){
 			enemy.y = enemy.y;
 		}
 
-		if (enemy.type == 2 && enemy.x >= 160 && enemy.x <= 650 && gameover === false && game == "vertical") {enemy.x+= Math.floor((Math.random() *50)- 25);}
+		if (enemy.type == 2 && enemy.move > 50 && enemy.x >= 160 && enemy.x <= 650 && gameover === false && game == "vertical") {
+			enemy.x+= Math.floor((Math.random() *1)+ 1);
+		} else if (enemy.type == 2 && enemy.move < 50 && enemy.x >= 160 && enemy.x <= 650 && gameover === false && game == "vertical") {
+			enemy.x-= Math.floor((Math.random() *1)+ 1);
+		}
 		if (enemy.type == 2 && enemy.y >= 160 && enemy.y <= 650 && gameover === false && game == "horizontal") {enemy.y+= Math.floor((Math.random() *50)- 25);}
 
 		//Vérifier si cet ennemi est encore affiché à l"écran, sinon on le supprimeen mémoire
-		if (game == "vertical" && enemy.x < 185 || enemy.x > 975 || enemy.y < -75 || enemy.y > canvas.height) {
+		if (game == "vertical" && enemy.x < 150 || enemy.x > 975 || enemy.y < -75 || enemy.y > canvas.height) {
 			window.ennemi.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau
 		} else if (game == "horizontal" && enemy.y < 185 || enemy.y > 800 || enemy.x < 0 || enemy.x > 975) {
 			window.ennemi.splice(i, 1); // Supprime cet element à l'indice 'i' dans le tableau

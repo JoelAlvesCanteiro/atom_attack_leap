@@ -1,24 +1,34 @@
 import Leap from 'leapjs';
 import {alpha} from './utils.js';
 import {badEnd, goodEnd} from './end.js';
+import {LoadImages} from './load_img.js';
 
 let tirslimy = new Audio('./music/Tire_Slimy3.ogg');
 let tirvirus = new Audio('./music/Tire_Virus.ogg');
 let mortvirus = new Audio('./music/Mort_Virus.ogg');
 
+let controller = new Leap.Controller({enableGestures: true});
+
+export function detectLeap(){
+	console.log(controller);	
+}
+
 export function leap(){
-
-	let controller = new Leap.Controller({enableGestures: true});
-
 	controller.connect();
+
+	controller.on('deviceAttached', function() {
+		console.log("A Leap device has been connected.");
+		$('.leap').css("display", "none");
+			$('#canvas2').fadeIn();
+	});
 
 	Leap.loop( (frame) => {
 
 		// BOUCLE PARCOURANT CHAQUE MAIN DÉTECTÉE DANS L'ESPACE LEAP
 		frame.hands.forEach((hand) => {
 
-			if (hand.direction[0] > 0 && joueur.x < 615 && game == "vertical") {joueur.x += joueur.vitesse; right = true; left = false;}
-			else if (hand.direction[0] < 0 && joueur.x > 185 && game == "vertical") {joueur.x -= joueur.vitesse; right = false; left = true;}
+			if (hand.stabilizedPalmPosition[0] > 30 && joueur.x < 615 && game == "vertical") {joueur.x += joueur.vitesse; right = true; left = false;}
+			else if (hand.stabilizedPalmPosition[0] < -30 && joueur.x > 185 && game == "vertical") {joueur.x -= joueur.vitesse; right = false; left = true;}
 			else {right = false; left = false;}
 
 			if (hand.palmPosition[1] < 200 && joueur.y < 600 && game == "horizontal") {joueur.y += joueur.vitesse;}
@@ -30,7 +40,7 @@ export function leap(){
 
 		frame.gestures.forEach((gesture) => {
 
-			if (gesture.type == "keyTap") {
+			if (gesture.type == "circle") {
 				if (Date.now() - joueur.tempsDernierTir > joueur.cadenceTir && game == "vertical" && gameover === false) {
 					// Création d'un nouveau tir dans le tableau de tirs
 					window.tirs.push({

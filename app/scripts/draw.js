@@ -2,9 +2,10 @@
 export function DrawPlayer(){
 	if (nbAtome > 0) {
 		for(var i = 0; i < drawables.length; i++){
+			context.drawImage(hand, joueur.x-15, joueur.y-15, 18*8, 18*8);
 			drawables[i].Draw();
 		}
-	} else {		
+	} else if (nbAtome <= 0) {		
 		context.drawImage(mort,mortPerso.Steps[mortPerso.IdleAnimationStep][0],
 		mortPerso.Steps[mortPerso.IdleAnimationStep][1],mortPerso.Steps[mortPerso.IdleAnimationStep][2],
 		mortPerso.Steps[mortPerso.IdleAnimationStep][3],joueur.x,joueur.y,15*8,15*8);
