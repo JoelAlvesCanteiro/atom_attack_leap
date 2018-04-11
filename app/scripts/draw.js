@@ -2,7 +2,6 @@
 export function DrawPlayer(){
 	if (nbAtome > 0) {
 		for(var i = 0; i < drawables.length; i++){
-			context.drawImage(hand, joueur.x-15, joueur.y-15, 18*8, 18*8);
 			drawables[i].Draw();
 		}
 	} else if (nbAtome <= 0) {		
